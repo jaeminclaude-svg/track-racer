@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Track Racer"><meta name="theme-color" content="#0b0f14"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Track Racer</title>
 <style>
 /* Layout: full-screen WebGL canvas, HUD pinned to corners, touch pads at the bottom on phones. */
@@ -396,6 +396,17 @@ body.showroom #mm, body.showroom #pauseBtn, body.showroom #homeRace { display: n
 <div id="rotate"><div><div class="ph"></div><p>기기를 가로로 돌려주세요</p><small>가로 화면에서 플레이할 수 있어요</small></div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// 홈 화면 설치(PWA)용: GitHub Pages 주소에서만 켜져요 (Claude·앱 안에서는 아무 일도 안 해요)
+(function () {
+  try {
+    if (!/\.github\.io$/.test(location.hostname)) return;
+    var l = document.createElement('link'); l.rel = 'manifest'; l.href = 'manifest.json'; document.head.appendChild(l);
+    var a = document.createElement('link'); a.rel = 'apple-touch-icon'; a.href = 'icon-180.png'; document.head.appendChild(a);
+    if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+  } catch (e) {}
+})();
+</script>
 <script>
 // Claude 밖(앱·일반 브라우저)에서 온라인 대전을 쓰기 위한 호환 계층: 공개 MQTT(WebSocket) 브로커로 방 메시지를 주고받아요.
 (function () {
